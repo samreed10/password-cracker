@@ -61,15 +61,13 @@ def initialiseProgram():
 		print("+-----------------------------------+")
 	if os.path.exists(passwdFileName + ".txt") == 1:
 		passwdFileName = passwdFileName + ".txt"
-	passwdFile = open(passwdFileName, "r") 	# open group password list for reading
-	#hashlist = [] 
+	passwdFile = open(passwdFileName, "r") 	# open group password list for reading 
 	userlist = []					# create an empty list
 	for line in passwdFile: 			# for every line in the password file...
 		if line.isspace() == 0: 		# if the line does not contain only spaces...
 			# split the line into groups at the points where there are semi-colons
-			# and add the 2nd group (the passsword section) to the hashlist
+			# and add the 1st and 2nd groups (the username and hash sections) to the userlist
 			userlist.append([(line.split(":",2))[0], (line.split(":",2))[1]])
-			#userlist.append((line.split(":",2))[0])
 
 	# initialise empty table ready to fill with results
 	initTable = []
