@@ -51,15 +51,17 @@ def initialiseProgram():
 	print("+-----------------------------------+")
 	print("              Group 5")
 	print("+-----------------------------------+")
-	passwdFileName = input("Please enter the name of the .txt target password file (excluding file extension): ")
+	passwdFileName = input("Please enter the name of the target password file: ")
 	print("+-----------------------------------+")
-	while(os.path.exists(passwdFileName + ".txt") == 0):
+	while((os.path.exists(passwdFileName + ".txt") == 0) and (os.path.exists(passwdFileName) == 0)):
 		print("File does not exist")
 		print("Ensure the target password file is written correctly and within the same directory as cracker.py") 
 		print("+-----------------------------------+")
-		passwdFileName = input("Please enter the name of the .txt target password file (excluding file extension): ")
+		passwdFileName = input("Please enter the name of the .txt target password file: ")
 		print("+-----------------------------------+")
-	passwdFile = open(passwdFileName + ".txt", "r") 	# open group password list for reading
+	if os.path.exists(passwdFileName + ".txt") == 1:
+		passwdFileName = passwdFileName + ".txt"
+	passwdFile = open(passwdFileName, "r") 	# open group password list for reading
 	hashlist = [] 
 	userlist = []					# create an empty list
 	for line in passwdFile: 			# for every line in the password file...
