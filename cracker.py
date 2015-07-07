@@ -18,7 +18,7 @@ def main():
 	while True:
 		choice = 1
 		printMenu()
-		choice = raw_input("Please choose an option: ")
+		choice = input("Please choose an option: ")
 		# Choice validation; if choice is a digit and between 1 and 7, continue...
 		if choice.isdigit() == False or 1 > eval(choice) > 6:
 			print("Please enter valid choice.")
@@ -51,13 +51,13 @@ def initialiseProgram():
 	print("+-----------------------------------+")
 	print("              Group 5")
 	print("+-----------------------------------+")
-	passwdFileName = raw_input("Please enter the name of the .txt target password file (excluding file extension): ")
+	passwdFileName = input("Please enter the name of the .txt target password file (excluding file extension): ")
 	print("+-----------------------------------+")
 	while(os.path.exists(passwdFileName + ".txt") == 0):
 		print("File does not exist")
 		print("Ensure the target password file is written correctly and within the same directory as cracker.py") 
 		print("+-----------------------------------+")
-		passwdFileName = raw_input("Please enter the name of the .txt target password file (excluding file extension): ")
+		passwdFileName = input("Please enter the name of the .txt target password file (excluding file extension): ")
 		print("+-----------------------------------+")
 	passwdFile = open(passwdFileName + ".txt", "r") 	# open group password list for reading
 	hashlist = [] 
@@ -105,19 +105,19 @@ def printResults(hashlist, userlist, resultsTable, finishTime):
 	print("+-----------------------------------+")
 	
 def saveToFile(hashlist, userlist, resultsTable):
-	resultsFilePath = raw_input("Enter file name, excluding file extensions: ")
+	resultsFilePath = input("Enter file name, excluding file extensions: ")
 	# check to see if file exists6
 	if os.path.exists(resultsFilePath + ".txt") == 1 or os.path.exists(resultsFilePath + ".csv")  == 1:
-		overwriteResponse = raw_input("The file currently exists. Would you like to overwrite? (y/n): ")
+		overwriteResponse = input("The file currently exists. Would you like to overwrite? (y/n): ")
 		# check if answer is valid (y/n)
 		while overwriteResponse.upper() != "Y" and overwriteResponse.upper() != "N":
 			print("Please enter y or n.")
-			overwriteResponse = raw_input("The file currently exists. Would you like to overwrite? (y/n): ")
+			overwriteResponse = input("The file currently exists. Would you like to overwrite? (y/n): ")
 		if overwriteResponse.upper() == "Y":
 			writeToTxt(resultsFilePath, resultsTable, hashlist)
 			writeToCsv(resultsFilePath, resultsTable, hashlist)
 		elif overwriteResponse.upper() == "N":
-			newFilePath = raw_input("Enter new path: ")
+			newFilePath = input("Enter new path: ")
 			writeToTxt(newFilePath, resultsTable, hashlist)
 			writeToCsv(newFilePath, resultsTable, hashlist)
 	else:
@@ -153,7 +153,7 @@ def writeToCsv(filepath, resultsTable, hashlist):
 def getDict():
 	j = 0
 	while j==0:
-		dictName = raw_input("Enter the .txt wordlist filename (excluding file extension): ")
+		dictName = input("Enter the .txt wordlist filename (excluding file extension): ")
 		if os.path.exists("Wordlists/"+dictName+".txt") == False:
 			print("File does not exist")
 		else:
@@ -183,26 +183,26 @@ def dictAttack(hashlist, userlist, resultsTable, dictionary, numOfTestsRan):
 
 def maskAttack(hashlist, userlist, resultsTable, numOfTestsRan):
 	numOfTestsRan += 1
-	mask = list(raw_input("Enter the mask: "))
+	mask = list(input("Enter the mask: "))
 	while (len(mask) % 2) > 0 or (mask.count('%')) != (len(mask) / 2):
 		print("+-----------------------------------+")
 		print("Please enter a valid mask option, ensure you are including a '%' per mask")
 		print("Valid mask options:")
 		print("\t%a = alphanumeric\n\t%d = digits\n\t%l = lowercase\n\t%u = uppercase\n\t%p = punctuation\n\t%e = all")
 		print("+-----------------------------------+")
-		mask = list(raw_input("Enter the mask: "))
-	increment = raw_input("Increment from zero to length of input mask (" + str((len(mask)) / 2) +")? (y/n) : ")
+		mask = list(input("Enter the mask: "))
+	increment = input("Increment from zero to length of input mask (" + str((len(mask)) / 2) +")? (y/n) : ")
 	while increment.upper() != "Y" and increment.upper() != "N":
 		print("+-----------------------------------+")
 		print("Please enter y or n")
 		print("+-----------------------------------+")
-		increment = raw_input("Increment from zero to length of input mask (" + str((len(mask)) / 2) +")? (y/n) : ")
-	n = raw_input("How many hours do you wish to execute this attack mode for (0 for until the end): ")
+		increment = input("Increment from zero to length of input mask (" + str((len(mask)) / 2) +")? (y/n) : ")
+	n = input("How many hours do you wish to execute this attack mode for (0 for until the end): ")
 	while n.isdigit() == False:
 		print("+-----------------------------------+")
 		print("Please enter a digit")
 		print("+-----------------------------------+")
-		n = raw_input("How many hours do you wish to execute this attack mode for (0 for until the end): ")
+		n = input("How many hours do you wish to execute this attack mode for (0 for until the end): ")
 	global timeToFinish
 	startTime = datetime.datetime.now()
 	timeToFinish = startTime + datetime.timedelta(hours=eval(n))
