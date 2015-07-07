@@ -14,7 +14,7 @@ def cls():
 
 def main():
 	cls()
-	hashlist, userlist, resultsTable, numOfTestsRan = initialiseProgram()
+	hashlist, userlist, resultsTable, numOfTestsRan, finishTime = initialiseProgram()
 	while True:
 		choice = 1
 		printMenu()
@@ -34,7 +34,7 @@ def main():
 				hashlist, userlist, resultsTable, finishTime, numOfTestsRan = maskAttack(hashlist, userlist, resultsTable, numOfTestsRan)
 				printResults(hashlist, userlist, resultsTable, finishTime)
 			elif choice == 3:
-				if numOfTestsRan >= 1:
+				if numOfTestsRan >= 0:
 					printResults(hashlist, userlist, resultsTable, finishTime)
 				else:
 					print("+-----------------------------------+")
@@ -71,9 +71,11 @@ def initialiseProgram():
 			hashlist.append((line.split(":",2))[1])
 			userlist.append((line.split(":",2))[0])
 
-	# initialise empty table ready to fill wih results
+	# initialise empty table ready to fill with results
 	initTable = []
-	return hashlist, userlist, initTable, numOfTestsRan
+	# create empty finishTime
+	finishTime = 0
+	return hashlist, userlist, initTable, numOfTestsRan, finishTime
 	
 def printMenu():
 	print("1: Dictionary attack")
@@ -83,6 +85,13 @@ def printMenu():
 	print("5: Exit")
 	print("+-----------------------------------+")
 	
+def printRemainingUsers(hashlist, userlist):
+	print
+	print("List of users and corresponding hashes:")
+	for i in len(hashlist):
+		print(userlist[i] + ":" + hashlist[i])
+
+
 def printResults(hashlist, userlist, resultsTable, finishTime):
 	print; print
 	print("RESULTS TABLE")
@@ -92,7 +101,8 @@ def printResults(hashlist, userlist, resultsTable, finishTime):
 		print("All hashes cracked!")
 	else:
 		for i in range(len(hashlist)):
-			print(hashlist[i])
+			#print(userlist[i] + ":" + hashlist[i])
+			print('{0:10} {1:20}'.format(userlist[i],hashlist[i]))
 	print("+-----------------------------------+")
 	print("Cracked Hashes")
 	for i in range(len(resultsTable)):
